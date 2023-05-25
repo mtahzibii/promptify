@@ -33,6 +33,15 @@ const Feed = () => {
     fetchPrompts();
   }, []);
 
+  const filterPrompts = (item) => {
+    return allPosts.filter(
+      (post) =>
+        post.prompt.includes(item) ||
+        post.tag.includes(item) ||
+        post.creator.username.includes(item)
+    );
+  };
+
   const handleSearchChange = async (e) => {
     clearTimeout(searchTimeout);
     setSearchText(e.target.value);
@@ -40,12 +49,7 @@ const Feed = () => {
     // debounce
     setSearchTimeout(
       setTimeout(() => {
-        const results = allPosts.filter(
-          (post) =>
-            post.prompt.includes(searchText) ||
-            post.tag.includes(searchText) ||
-            post.creator.username.includes(searchText)
-        );
+        const results = filterPrompts(e.target.value);
         setSearchedResults(results);
       }, 500)
     );
@@ -53,12 +57,7 @@ const Feed = () => {
 
   const handleTagClick = (tag) => {
     setSearchText(tag);
-    const results = allPosts.filter(
-      (post) =>
-        post.prompt.includes(tag) ||
-        post.tag.includes(tag) ||
-        post.creator.username.includes(tag)
-    );
+    const results = filterPrompts(tag);
     setSearchedResults(results);
   };
 

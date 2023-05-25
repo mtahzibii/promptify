@@ -13,7 +13,9 @@ const PromptCard = ({ post, handleTagClick, handleDelete }) => {
 
   const [copied, setCopied] = useState("");
 
-  const handleProfileClick = () => {};
+  const handleProfileClick = () => {
+    router.push(`/profile/${post.creator._id}?name=${post.creator.username}`);
+  };
 
   const handleCopy = () => {
     setCopied(post.prompt);
@@ -37,7 +39,7 @@ const PromptCard = ({ post, handleTagClick, handleDelete }) => {
             height={40}
             className="rounded-full object-contain"
           />
-          <div className="flex flex-col">
+          <div className="flex flex-col ">
             <h3 className="font-semibold text-gray-800">
               {post.creator.username}
             </h3>
@@ -63,7 +65,7 @@ const PromptCard = ({ post, handleTagClick, handleDelete }) => {
       <p
         className="blue_gradient text-sm cursor-pointer"
         onClick={() => handleTagClick && handleTagClick(post.tag)}>
-        {`${post.tag},`}
+        {`#${post.tag},`}
       </p>
       {session?.user.id === post.creator._id && pathname === "/profile" && (
         <div className="flex justify-between items-center gap-4 mt-8 py-2">

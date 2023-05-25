@@ -10,7 +10,7 @@ const MyProfile = () => {
   const [userPosts, setUserPosts] = useState([]);
 
   useEffect(() => {
-    const fetchUserPrompts = async () => {
+    const fetchMyPrompts = async () => {
       const response = await fetch("/api/prompt");
       const data = await response.json();
 
@@ -20,7 +20,7 @@ const MyProfile = () => {
       if (session?.user.id) setUserPosts(filteredPosts);
     };
 
-    fetchUserPrompts();
+    fetchMyPrompts();
   }, [session?.user.id]);
 
   const handleDelete = async (post) => {
